@@ -1,49 +1,32 @@
-
 import React, { useState } from 'react';
 import ProductList from './ProductList';
 import './App.css';
 import AboutUs from './AboutUs';
+import LandingPage from './LandingPage';
 
 function App() {
-  
-  const [showProductList, setShowProductList] = useState(false);
+   const [currentPage, setCurrentPage] = useState('landing');
 
-  const handleGetStartedClick = () => {
-    setShowProductList(true);
-  };
+   const handleHomeClick = () => {
+        setCurrentPage('landing');
+    };
 
-  const handleHomeClick = () => {
-    setShowProductList(false);
-  };
+   const handleGetStartedClick = () => {
+        setCurrentPage('products');
+    };
+
+   // 删除重复的 handleHomeClick 函数
+   // 删除 showProductList 状态
 
   return (
     <div className="app-container">
-      <div className={`landing-page ${showProductList ? 'fade-out' : ''}`}>
-        <div className="background-image"></div>
-        <div className="content">
-         <div className="landing_content">
-         <h1>Welcome To Paradise Nursery</h1>
-          <div className="divider"></div>
-          <p>Where Green Meets Serenity</p>
-         
-          <button className="get-started-button" onClick={handleGetStartedClick}>
-            Get Started
-          </button>
-         </div>
-          <div className="aboutus_container">
-          <AboutUs/>
-          </div>
-          </div>
-
-      </div>
-      <div className={`product-list-container ${showProductList ? 'visible' : ''}`}>
-        <ProductList onHomeClick={handleHomeClick}/>
-      </div>
+      {currentPage === 'landing' ? (
+        <LandingPage onGetStartedClick={handleGetStartedClick} />
+      ) : (
+        <ProductList onHomeClick={handleHomeClick} />
+      )}
     </div>
   );
 }
 
 export default App;
-
-
-
